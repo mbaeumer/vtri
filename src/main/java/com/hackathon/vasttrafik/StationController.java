@@ -71,6 +71,12 @@ public class StationController {
         }else{
             System.out.println("Station departure board not null");
         }
+
+        if (station.getDepartureBoard().getDeparture() == null){
+            System.out.println("Station departures null");
+        }else{
+            System.out.println("Size: " + station.getDepartureBoard().getDeparture().size());
+        }
         List<Departure> allDepartures = station.getDepartureBoard().getDeparture();
 
         /*
