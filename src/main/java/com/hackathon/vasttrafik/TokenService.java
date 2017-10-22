@@ -13,56 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-@RestController
-@RequestMapping("/api/")
 public class TokenService {
 
-    private Token token = null;
-    String key = "Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h";
+    private String key = "Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h";
 
-    // curl -k -d "grant_type=client_credentials" -H "Authorization: Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h" https://api.vasttrafik.se:443/token
+    private Gson gson = new Gson();
 
-    //curl -k -d "grant_type=client_credentials" -H "Authorization: Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h" https://api.vasttrafik.se:443/token
-
-
-
-
-    Gson gson = new Gson();
-
-    @RequestMapping(value="/token", method= RequestMethod.GET)
     public Token getToken () throws Exception {
+        Token token = null;
         String url = "https://api.vasttrafik.se:443/token";
-        if (token == null) {
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-            headers.set("Authorization", key);
-            HttpEntity<String> entity = new HttpEntity<String>("grant_type=client_credentials", headers);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", key);
+        HttpEntity<String> entity = new HttpEntity<String>("grant_type=client_credentials", headers);
 
-            String result = restTemplate.postForObject(url, entity, String.class);
+        String result = restTemplate.postForObject(url, entity, String.class);
 
-            token = gson.fromJson(result, Token.class);
-
-            return token;
-        }else{
-            if (token.getExpiresIn() < 60){
-                RestTemplate restTemplate = new RestTemplate();
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                headers.set("Authorization", key);
-
-                HttpEntity<String> entity = new HttpEntity<String>("grant_type=client_credentials", headers);
-
-                String result = restTemplate.postForObject(url, entity, String.class);
-
-                token = gson.fromJson(result, Token.class);
-
-                return token;
-            }else{
-                return token;
-            }
-        }
-
+        token = gson.fromJson(result, Token.class);
+        return token;
 
     }
 
