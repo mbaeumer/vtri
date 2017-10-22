@@ -35,7 +35,7 @@ public class StationController {
     @RequestMapping(value="/station", method= RequestMethod.GET)
     public List<Departure> getNextDepartures() throws Exception {
 
-
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
