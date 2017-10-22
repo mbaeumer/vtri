@@ -101,6 +101,6 @@ public class StationController {
         List<Departure> wheelchair = allDepartures.stream()
                 .filter(d -> d.getAccessibility() != null).collect(Collectors.toList());
 
-        return allDepartures;
+        return wheelchair;
     }
 }
