@@ -71,11 +71,13 @@ public class StationController {
         }
         */
 
+        /*
         Collections.sort(allDepartures, new Comparator<Departure>() {
             public int compare(Departure s1, Departure s2) {
                 return s1.getRtTime().compareTo(s2.getRtTime());
             }
         });
+        */
 
 
         List<Departure> wheelchair = allDepartures.stream()
