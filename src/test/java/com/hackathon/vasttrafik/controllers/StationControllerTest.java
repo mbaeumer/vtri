@@ -57,6 +57,7 @@ public class StationControllerTest {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
+    @Ignore
     @Test
     public void getDepartures() throws Exception{
         mockMvc.perform(get("/api/station"))

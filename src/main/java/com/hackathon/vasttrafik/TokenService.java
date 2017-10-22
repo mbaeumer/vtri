@@ -17,7 +17,14 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api/")
 public class TokenService {
 
-    String key = "Basic eVFteXNBQ1hDbWlQWlFBc0FaRWxKSEJFOEE4YTpMSlZ3cXdtMHdab21yeVZXdkN4ZHA1dFE3TElh";
+    String key = "Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h";
+
+    // curl -k -d "grant_type=client_credentials" -H "Authorization: Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h" https://api.vasttrafik.se:443/token
+
+    //curl -k -d "grant_type=client_credentials" -H "Authorization: Basic TzRCWEUwVDMwYk10R3hQbUM4WjVmdGF0NmZNYTpLUm5CNUVwajZxVzlzaXFGdGZ4UEdLVUh0UW9h" https://api.vasttrafik.se:443/token
+
+
+
 
     Gson gson = new Gson();
 
