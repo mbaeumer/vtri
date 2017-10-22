@@ -59,6 +59,18 @@ public class StationController {
 
         Station station = gson.fromJson(result, Station.class);
 
+        if (station == null) {
+            System.out.println("Station null");
+        }else{
+            System.out.println("Station not null");
+        }
+
+
+        if (station.getDepartureBoard() == null){
+            System.out.println("Station departure board null");
+        }else{
+            System.out.println("Station departure board not null");
+        }
         List<Departure> allDepartures = station.getDepartureBoard().getDeparture();
 
         /*
