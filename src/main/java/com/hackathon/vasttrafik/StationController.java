@@ -1,6 +1,7 @@
 package com.hackathon.vasttrafik;
 
 import com.google.gson.Gson;
+import com.hackathon.vasttrafik.models.CustomDeparture;
 import com.hackathon.vasttrafik.models.Departure;
 import com.hackathon.vasttrafik.models.Station;
 import com.hackathon.vasttrafik.models.Token;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/")
@@ -33,7 +33,7 @@ public class StationController {
     Gson gson = new Gson();
 
     @RequestMapping(value="/station", method= RequestMethod.GET)
-    public List<Departure> getNextDepartures() throws Exception {
+    public List<CustomDeparture> getNextDepartures() throws Exception {
 
         TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -89,18 +89,29 @@ public class StationController {
         }
         */
 
-        /*
+
         Collections.sort(allDepartures, new Comparator<Departure>() {
             public int compare(Departure s1, Departure s2) {
                 return s1.getRtTime().compareTo(s2.getRtTime());
             }
         });
-        */
 
+        List<CustomDeparture> customDepartures = new ArrayList<>();
 
-        List<Departure> wheelchair = allDepartures.stream()
+        for (Departure departure : allDepartures){
+            CustomDeparture customDeparture = new CustomDeparture();
+            customDeparture.setName(departure.getName());
+            customDeparture.setType(departure.getType());
+            customDeparture.setAccessibility(departure.getAccessibility());
+            customDeparture.setRtTime(departure.getRtTime());
+            customDeparture.setDirection(departure.getDirection());
+            customDepartures.add(customDeparture);
+        }
+
+        /*List<Departure> wheelchair = allDepartures.stream()
                 .filter(d -> d.getAccessibility() != null).collect(Collectors.toList());
-
-        return wheelchair;
+        System.out.println("Size accessible: " + wheelchair.size());
+        */
+        return customDepartures;
     }
 }
